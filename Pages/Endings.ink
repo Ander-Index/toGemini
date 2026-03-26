@@ -42,7 +42,7 @@
 +   {Menu__Main.Separator <= 5} [返回上一级]
     ->  Menu__Main
 +   {Menu__Main.Separator > 5}  重置游戏
-    # CLEAR
+    # RESTART
     ->  END
 ////////////////////////////////
 ////////////////////////////////

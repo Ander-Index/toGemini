@@ -307,8 +307,8 @@ img {
     /* transition: background-color 0.3s ease; 让主题切换时的背景变色也如丝般顺滑 */
     border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* 白色分割线 */
     /* 👇 3. 强烈推荐的高级质感：毛玻璃模糊效果 */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
 }
 
 #toolbar-buttons {

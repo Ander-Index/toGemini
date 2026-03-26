@@ -1,50 +1,44 @@
 === Menu__Main
-/*
-【DEV】INDEX = {INDEX}
-【DEV】Check__SAN(INDEX)：{Check__SAN(INDEX)}
-*/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
++   {Count__Start == 0}新的游戏
+    ~   Count__Start ++
+    # CLEAR
+    ->  Menu__START
 ////////////////////////////////
++   {Count__Start > 0}  重新连接：第 {Count__Start} 次
+    ~   Count__Start ++
+    ~   Count__Chapter = 0
+    # CLEAR
+    ->  Menu__START
 ////////////////////////////////
-+   {Count__Game_Over == 0}    [初始化]   # CLEAR
-    ->  Dreams.Check
++   身份选择
+    ~   Count__Chapter = 0
+    ->  JumpTo
 ////////////////////////////////
++   [————————]
+    <-  Menu__Common.Divider   
+    ->  Menu__Main
 ////////////////////////////////
-+   {Count__Game_Over != 0 and Flag__Base__Wakeup == 0}    重新连接：第 {Count__Game_Over} 次
-    ->  Dreams.Check
++   成就一览
+    # CLEAR
+    ->  Achievements
 ////////////////////////////////
++   结局一览
+    # CLEAR
+    ->  Finales
 ////////////////////////////////
-+   [结局回溯]
-    ->  Page__Endings.Index
++   死法一览
+    # CLEAR
+    ->  Shutdown
 ////////////////////////////////
++   [————————]
+    <-  Menu__Common.Divider   
+    ->  Menu__Main
 ////////////////////////////////
-+   (Separator) ————————
-    {   
-    -   Separator > 5:
-        ~   Flag__Work__Gym = 1
-        ~   Flag__Work__Off_Work = 1
-        ~   Flag__Work__Business_Trip = 1
-        ~   Flag__Work__Napping = 1
-        ~   Flag__Work__Shutdown = 1
-        ~   Flag__Break__Interview = 1
-        ~   Flag__Break__Cinema = 1
-        ~   Flag__Break__Home = 1
-        ~   Flag__Break__Shutdown = 1
-        ~   Flag__Base__Wakeup = 1
-        #   CLEAR
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        No.8，欢迎访问黑川物流数据库。
-        您想要回溯哪一段内容？
-        -> Page__Endings
-    -   else:
-        {我小分隔符也绝非善类.jpg|你再按我我肯定打死你！|有完没完！|我要哈气啦！！！|难道说你是……}
-        -> Menu__Main
-    }
-    -> Menu__Main
-////////////////////////////////
++   [制作人员]
+    # CLEAR
+    ->  Credits
 ////////////////////////////////
 +   更新日志
     # CLEAR
-    ->  Page__Log
-+   制作人员
-    # CLEAR
-    ->  Credits
+    ->  Log

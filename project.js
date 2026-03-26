@@ -99,7 +99,11 @@ var loadBtn = document.getElementById("load-btn");
 loadBtn.addEventListener("click", function(event) {
     // 阻止超链接默认的刷新/跳转行为
     event.preventDefault(); 
-    
+    // ==========================================
+    // 新增：在读取存档前，先调用引擎的方法清除当前页面上的所有内容
+    // 引擎会自动根据你设置的 hidelength (300ms) 播放淡出动画
+    // ==========================================
+    story.clear();    
     // 3. 调用 memorycard 的官方读取接口，把当前的 story 状态读出来
     memorycard.load(story);
     

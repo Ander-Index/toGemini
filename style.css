@@ -338,6 +338,9 @@ img {
 }
 
 
+
+
+
 #toolbar a {
     color: #966495;        /* 文字颜色 */
     font-size: 14pt;
@@ -350,6 +353,25 @@ img {
 #toolbar a:hover {
     color: #f16d69;        /* 鼠标悬停时的颜色，这里用了 Calico 链接默认的红色 */
 }
+
+
+
+/* ================================================================= */
+/* 工具栏左侧 (Logo 与 标题) 样式配置                                  */
+/* ================================================================= */
+#toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* 控制 Logo 和标题之间的间距，可自行调整 */
+}
+
+#toolbar-title {
+    font-size: 14pt;
+    font-weight: bold;
+    color: white; /* 默认黑夜主题下的文字颜色 */
+    cursor: default; /* 鼠标悬停保持普通指针样式，表明这不是按钮 */
+}
+
 
 
 /* ================================================================= */
@@ -378,6 +400,11 @@ body.light-theme .chosen {
 body.light-theme #toolbar {
     background-color: rgba(255, 255, 255, 0.7);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* 黑色分割线 */
+}
+
+/* 适配明亮主题 (Light Theme) */
+body.light-theme #toolbar-title {
+    color: black;
 }
 
 
@@ -410,3 +437,18 @@ body.sepia-theme #toolbar {
     background-color: rgba(253, 246, 227, 0.7);
     border-bottom: 1px solid rgba(101, 123, 131, 0.15); /* 褐色分割线 */
 }
+
+/* 适配护眼黄主题 (Sepia Theme) */
+body.sepia-theme #toolbar-title {
+    color: #433422;
+}
+
+
+
+
+
+
+
+
+
+

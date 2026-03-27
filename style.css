@@ -472,3 +472,51 @@ body.sepia-theme #toolbar-title {
 
 
 
+/* 自定义输入框的容器：采用 Flex 布局让它们并排 */
+.custom-input-container {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+    align-items: center;
+}
+
+/* 文本输入框的样式 */
+.custom-input-field {
+    flex: 1; /* 让输入框占据剩余的所有空间 */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.custom-input-field:focus {
+    border-color: #4caf50;
+}
+
+/* 确认按钮的样式 */
+.custom-input-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+}
+
+.custom-input-btn:hover {
+    background-color: #45a049;
+}
+
+.custom-input-btn:disabled {
+    background-color: #9e9e9e;
+    cursor: not-allowed;
+}
+
+/* 强制输入逻辑：当存在这个 class 时，隐藏所有的标准墨水选项 */
+.hide-choices-for-input .choice {
+    display: none !important;
+}

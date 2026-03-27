@@ -60,7 +60,7 @@ options.hidelength = 300;    // 元素淡出/清屏的动画时间（默认 600.
 
 // create our game
 
-var story = new Story("即刻入职.ink");
+var story = new Story("story.ink");
 
 
 // 1. 获取页面上的保存按钮
@@ -175,4 +175,173 @@ themeBtn.addEventListener("click", function(event) {
     // setTimeout(function() {
     //     themeBtn.style.color = ""; 
     // }, 300);
+});
+
+
+
+
+
+
+// 添加一个名为 #input 的自定义标签
+Tags.add("input_text", function(story, property) {
+    // property 就是标签冒号后面的内容，即你想替换的 Ink 变量名
+    var varName = property ? property.trim() : null;
+    if (!varName) return;
+
+    // 1. 创建一个外层容器 (段落)
+    var container = document.createElement("p");
+    container.className = "custom-input-container";
+
+    // 2. 创建输入框
+    var inputField = document.createElement("input");
+    inputField.type = "text"; 
+    inputField.placeholder = "请输入...";
+    inputField.className = "custom-input-field";
+
+    // 3. 创建确认按钮
+    var confirmBtn = document.createElement("button");
+    confirmBtn.innerText = "确认";
+    confirmBtn.className = "custom-input-btn";
+
+    // 将输入框和按钮加入容器
+    container.appendChild(inputField);
+    container.appendChild(confirmBtn);
+
+    // [关键点] 给游戏容器加一个 class，用于在 CSS 里暂时隐藏默认的 Ink 选项
+    // 这样玩家必须通过输入框来推进流程
+    story.innerdiv.classList.add("hide-choices-for-input");
+
+    // 4. 绑定按钮的点击事件
+    confirmBtn.addEventListener("click", function(event) {
+        event.preventDefault(); // 阻止默认行为
+        
+        var val = inputField.value.trim();
+        if (val !== "") {
+            // 将玩家输入的值赋给 Ink 中的变量
+            story.ink.variablesState[varName] = val;
+            
+            // 改变外观，给玩家已确认的视觉反馈
+            inputField.disabled = true;
+            confirmBtn.disabled = true;
+            confirmBtn.innerText = "已确认 ✔";
+
+            // 稍微延迟一下，然后自动推进故事
+            setTimeout(function() {
+                // 移除隐藏选项的 class
+                story.innerdiv.classList.remove("hide-choices-for-input");
+                
+                // 找到当前的所有选项，并自动点击第一个未被点过的选项
+                var choices = story.innerdiv.querySelectorAll(".choice a");
+                for (var i = 0; i < choices.length; i++) {
+                    if (!choices[i].classList.contains("chosen")) {
+                        choices[i].click();
+                        break;
+                    }
+                }
+            }, 400); // 400 毫秒的延迟让玩家能看清“已确认”的提示
+        } else {
+            // 如果玩家没填内容，给一点提示
+            inputField.placeholder = "内容不能为空哦！";
+            inputField.style.borderColor = "red";
+        }
+    });
+
+    // 小优化：允许玩家按键盘的回车键（Enter）直接提交
+    inputField.addEventListener("keydown", function(event) {
+        event.stopPropagation();    // 【新增这一行】：阻止按键事件“冒泡”到网页外层，这样 Calico 就听不到你的按键了
+        if (event.key === "Enter") {
+            confirmBtn.click();
+        }
+    });
+
+    // 5. 将这组创建好的 UI 元素推入 Calico 的渲染队列中，让它显示在文字流里
+    story.queue.push(container);
+});
+
+
+
+
+
+
+
+
+
+
+// 添加一个名为 #input_num 的自定义标签（专门用于输入数字）
+Tags.add("input_num", function(story, property) {
+    var varName = property ? property.trim() : null;
+    if (!varName) return;
+
+    // 1. 创建外层容器
+    var container = document.createElement("p");
+    container.className = "custom-input-container";
+
+    // 2. 创建数字输入框（核心区别：type 改为了 "number"）
+    var inputField = document.createElement("input");
+    inputField.type = "number"; 
+    inputField.placeholder = "请输入数字...";
+    inputField.className = "custom-input-field";
+
+    // 3. 创建确认按钮
+    var confirmBtn = document.createElement("button");
+    confirmBtn.innerText = "确认";
+    confirmBtn.className = "custom-input-btn";
+
+    container.appendChild(inputField);
+    container.appendChild(confirmBtn);
+
+    // 隐藏默认的选项
+    story.innerdiv.classList.add("hide-choices-for-input");
+
+    // 4. 绑定点击事件
+    confirmBtn.addEventListener("click", function(event) {
+        event.preventDefault();
+        
+        var val = inputField.value.trim();
+        if (val !== "") {
+            // 【核心区别】将玩家填写的文字强制转换为纯数字 (Float)
+            var numVal = parseFloat(val);
+            
+            // 确保转换后确实是一个有效的数字
+            if (!isNaN(numVal)) {
+                // 将数字存入 Ink 变量
+                story.ink.variablesState[varName] = numVal;
+                
+                // 禁用输入框，修改按钮状态
+                inputField.disabled = true;
+                confirmBtn.disabled = true;
+                confirmBtn.innerText = "已确认 ✔";
+
+                // 延迟 400 毫秒后自动推进剧情
+                setTimeout(function() {
+                    story.innerdiv.classList.remove("hide-choices-for-input");
+                    var choices = story.innerdiv.querySelectorAll(".choice a");
+                    for (var i = 0; i < choices.length; i++) {
+                        if (!choices[i].classList.contains("chosen")) {
+                            choices[i].click();
+                            break;
+                        }
+                    }
+                }, 400);
+            } else {
+                inputField.value = "";
+                inputField.placeholder = "只能输入数字哦！";
+                inputField.style.borderColor = "red";
+            }
+        } else {
+            inputField.placeholder = "内容不能为空哦！";
+            inputField.style.borderColor = "red";
+        }
+    });
+
+    // 支持回车键提交
+    inputField.addEventListener("keydown", function(event) {
+        event.stopPropagation();    // 【新增这一行】：阻止按键事件“冒泡”到网页外层，这样 Calico 就听不到你的按键了
+        if (event.key === "Enter") {
+        confirmBtn.click();
+        }
+    });
+
+    // 推入渲染队列
+    story.queue.push(container);
 });

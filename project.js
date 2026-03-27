@@ -182,7 +182,7 @@ themeBtn.addEventListener("click", function(event) {
 
 
 
-// 添加一个名为 #input 的自定义标签
+// 添加一个名为 #input_text 的自定义标签
 Tags.add("input_text", function(story, property) {
     // property 就是标签冒号后面的内容，即你想替换的 Ink 变量名
     var varName = property ? property.trim() : null;
@@ -344,4 +344,36 @@ Tags.add("input_num", function(story, property) {
 
     // 推入渲染队列
     story.queue.push(container);
+});
+
+
+
+
+
+
+
+
+// ==========================================
+// 处理带有 # unclickable 标签的不可点击选项
+// ==========================================
+document.getElementById("container").addEventListener("passage choice element", function(event) {
+    var choice = event.detail.choice;
+    var element = event.detail.element; // 这是包裹选项的 <p class="choice">
+    
+    // 检查 Ink 脚本中该选项是否带有 unclickable 标签
+    if (choice.tags && choice.tags.includes("unclickable")) {
+        // 给外层 <p> 加上特定的类名，方便 CSS 调整外观
+        element.classList.add("unclickable");
+        
+        // 获取实际承担点击功能的 <a> 标签
+        var link = element.querySelector("a");
+        
+        // 1. 彻底斩断鼠标交互，真正实现“无法点击”
+        link.style.pointerEvents = "none";
+        
+        // 2. 延迟覆盖引擎默认的悬停小手 (因为 Calico 会在动画结束后重置鼠标样式)
+        setTimeout(function() {
+            link.style.cursor = "not-allowed";
+        }, story.options.suppresschoice + 10);
+    }
 });

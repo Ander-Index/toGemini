@@ -1,6 +1,10 @@
 VAR playerName = ""
 VAR playerAge = 0
 
+ 
+
+
+
 办理入职手续的第一步，请在下面的表格中签上你的名字： #input_text: playerName
 
 + [提交姓名] 

@@ -136,35 +136,37 @@ pre code {
 
 
 
-
 /* ================================================================= */
 /* 智能排版终极版：基础排版 + 保护英文单词 + 制裁中文溢出                   */
 /* ================================================================= */
 
-p, p * {
-    /* --- 1. 恢复你丢失的基础排版 --- */
+/* --- 1. 基础排版（只针对外层 p 标签，不干扰里面的标题等特殊元素） --- */
+p {
     margin-block-start: 0px !important;
     font-size: 16pt;
     line-height: 1.4;
+}
 
-    /* --- 2. 刚才测试成功的智能换行规则 --- */
+/* --- 2. 智能换行规则（穿透所有内部子元素，强行制裁溢出） --- */
+p, p * {
     /* 恢复理智：尽量保持英文单词完整 */
     word-break: normal !important;
+    
     /* 精准防溢出：允许长串字符在撞墙时切断，优先切中文 */
     overflow-wrap: break-word !important;
+    
     /* 恢复正常阅读体验，处理标点 */
     line-break: auto !important;
+    
     /* 保留空格和引擎必要的文本流 */
     white-space: pre-wrap !important;
 
-    /* --- 3. 防拖拽蓝底 --- */
+    /* 防拖拽蓝底 */
     -webkit-user-drag: none;
     -khtml-user-drag: none;
     -moz-user-drag: none;
     -o-user-drag: none;
 }
-
-
 
 
 a 
@@ -190,7 +192,7 @@ a:hover
 
 .choice:hover
 {
-    color: #966495;
+    color: #93b17a;
     opacity: 1;
 }
 
@@ -203,17 +205,17 @@ a:hover
 
 .choice > a:hover
 {
-    color: #966495 !important;
+    color: #93b17a !important;
 }
 
 .choice > a:active
 {
-    color: #966495;
+    color: #93b17a;
 }
 
 .chosen
 {
-    color: #966495 !important;
+    color: #93b17a !important;
     opacity: 1 !important;
 }
 
@@ -358,9 +360,8 @@ img {
 
 
 
-
 #toolbar a {
-    color: #966495;        /* 文字颜色 */
+    color: #93b17a;        /* 文字颜色 */
     font-size: 14pt;
     font-weight: bold;
     cursor: pointer;       /* 鼠标移上去会变成小手 */
@@ -384,6 +385,7 @@ img {
 }
 
 #toolbar-title {
+    display: none !important; /* 这一行会强制隐藏标题 */
     font-size: 14pt;
     font-weight: bold;
     color: white; /* 默认黑夜主题下的文字颜色 */
@@ -470,56 +472,6 @@ body.sepia-theme #toolbar-title {
 
 
 
-/* 自定义输入框的容器：采用 Flex 布局让它们并排 */
-.custom-input-container {
-    display: flex;
-    gap: 10px;
-    margin: 20px 0;
-    align-items: center;
-}
-
-/* 文本输入框的样式 */
-.custom-input-field {
-    flex: 1; /* 让输入框占据剩余的所有空间 */
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    outline: none;
-    transition: border-color 0.3s;
-}
-
-.custom-input-field:focus {
-    border-color: #4caf50;
-}
-
-/* 确认按钮的样式 */
-.custom-input-btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    background-color: #4caf50;
-    color: white;
-    border-radius: 6px;
-    transition: background-color 0.3s;
-}
-
-.custom-input-btn:hover {
-    background-color: #45a049;
-}
-
-.custom-input-btn:disabled {
-    background-color: #9e9e9e;
-    cursor: not-allowed;
-}
-
-/* 强制输入逻辑：当存在这个 class 时，隐藏所有的标准墨水选项 */
-.hide-choices-for-input .choice {
-    display: none !important;
-}
-
-
 
 /* ================================================================= */
 /* 不可点击选项 (Unclickable Choice) 样式                              */
@@ -527,12 +479,12 @@ body.sepia-theme #toolbar-title {
 
 /* 让它半透明变暗，视觉上一看就是被禁用的 */
 .choice.unclickable {
-    opacity: 0.35 !important; 
+    opacity: 0.35;
     cursor: not-allowed !important; /* 强制显示禁止符号 */
 }
 
 /* 覆盖原本选项悬停时会变亮、变白的特效 */
 .choice.unclickable:hover {
-    opacity: 0.35 !important;
-    color: inherit !important;
+    opacity: 0.35;
+    color: inherit;
 }

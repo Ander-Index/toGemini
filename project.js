@@ -8,25 +8,25 @@ import "./patches/minwordsperline.js";
 import "./patches/dragtoscroll.js";
 
 // convert markdown to HTML tags
-import "./patches/markdowntohtml.js"
+// import "./patches/markdowntohtml.js"
 
 // -----------------------------------
 
-// import helper patch for binding shortcuts to choices
-import choices from "./patches/shortcuts/choices.js";
+// // import helper patch for binding shortcuts to choices
+// import choices from "./patches/shortcuts/choices.js";
 
-// bind the number keys to choices
-for (var i = 0; i < 9; i++)
-{
-	choices.add((i+1).toString(), i, true);
-}
+// // bind the number keys to choices
+// for (var i = 0; i < 9; i++)
+// {
+// 	choices.add((i+1).toString(), i, true);
+// }
 
-// bind z, x, and c to the first three shortcuts respectively
-["z", "x", "c"].forEach((key, index) => { choices.add(key, index, true) })
+// // bind z, x, and c to the first three shortcuts respectively
+// ["z", "x", "c"].forEach((key, index) => { choices.add(key, index, true) })
 
-// bind spacebar to progress the story,
-// provided there's only one choice available
-choices.add(" ", 0, true, true);
+// // bind spacebar to progress the story,
+// // provided there's only one choice available
+// choices.add(" ", 0, true, true);
 
 //	存档插槽
 import memorycard from "./patches/memorycard.js";
@@ -60,7 +60,7 @@ options.hidelength = 300;    // 元素淡出/清屏的动画时间（默认 600.
 
 // create our game
 
-var story = new Story("story.ink");
+var story = new Story("自然之神的伪冒祭祀.json");
 
 
 // 1. 获取页面上的保存按钮

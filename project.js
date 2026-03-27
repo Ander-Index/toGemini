@@ -135,7 +135,7 @@ resetBtn.addEventListener("click", function(event) {
     
     if (confirmReset) {
         // 调用 Calico 官方的重置接口
-        story.restart();
+        window.location.reload();	//	直接刷新网页
     }
 });
 

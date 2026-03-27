@@ -182,7 +182,7 @@ themeBtn.addEventListener("click", function(event) {
 
 
 
-// 添加一个名为 #input 的自定义标签
+// 添加一个名为 #input_text 的自定义标签
 Tags.add("input_text", function(story, property) {
     // property 就是标签冒号后面的内容，即你想替换的 Ink 变量名
     var varName = property ? property.trim() : null;

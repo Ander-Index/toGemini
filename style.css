@@ -192,7 +192,7 @@ a:hover
 
 .choice:hover
 {
-    color: #93b17a;
+    color: #966495;
     opacity: 1;
 }
 
@@ -205,17 +205,17 @@ a:hover
 
 .choice > a:hover
 {
-    color: #93b17a !important;
+    color: #966495 !important;
 }
 
 .choice > a:active
 {
-    color: #93b17a;
+    color: #966495;
 }
 
 .chosen
 {
-    color: #93b17a !important;
+    color: #966495 !important;
     opacity: 1 !important;
 }
 
@@ -335,13 +335,17 @@ img {
 /* === 2. Logo 样式配置 === */
 #logo-link {
     display: flex;
-    align-items: center;
-    border: none !important; /* 防止链接默认的下划线影响图片 */
+    align-items: center;    /* 确保在垂直方向上居中 */
+    justify-content: center;
+    border: none !important;
 }
 
 #logo-img {
-    height: 36px !important; /* 根据实际需求调整 Logo 的高度 */
-    width: auto;  /* 宽度根据高度自动缩放 */
+    height: 36px !important;  /* 锁定高度，你可以根据需要调整这个数值 */
+    width: auto !important;   /* 加上 !important 强制宽度自适应，覆盖全局 img 设置 */
+    object-fit: contain;      /* 核心：保证图片永远按原有比例缩放，绝对不会被拉长或压扁 */
+    flex-shrink: 0;           /* 核心：防止在 Flex 布局中被挤压变形 */
+    
     border: none;
     cursor: pointer;
     
@@ -356,8 +360,9 @@ img {
 
 
 
+
 #toolbar a {
-    color: #93b17a;        /* 文字颜色 */
+    color: #966495;        /* 文字颜色 */
     font-size: 14pt;
     font-weight: bold;
     cursor: pointer;       /* 鼠标移上去会变成小手 */
